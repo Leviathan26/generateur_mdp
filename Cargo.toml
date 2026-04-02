@@ -1,7 +1,9 @@
 [package]
 name = "generateur_mdp"
-version = "0.1.0"
-edition = "2021"
+version = "1.0.0"
+authors = ["NDSOFTKIT ndsoftkit@gmail.com>"]
+description = "Générateur et Coffre-fort de mots de passe sécurisé"
+edition = "2024"
 
 [dependencies]
 rand = "0.8"
@@ -16,3 +18,4 @@ winapi = { version = "0.3", features = ["wincon", "winuser"] }
 [build-dependencies]
 slint-build = "1.15.1"
 embed-resource = "2.5"
+winresource = "0.1" 

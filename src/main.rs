@@ -10,7 +10,7 @@ fn main() {
     let args: Vec<String> = env::args().collect();
 
     if args.len() == 1 {
-        // --- MODE GUI ---
+        // --- MODE GUI si aucun argument n'est fourni ---
         let ui = AppWindow::new().unwrap();
         // let ui_handle = ui.as_weak();
 
