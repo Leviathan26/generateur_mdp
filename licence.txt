@@ -1,6 +1,6 @@
 CONTRAT DE LICENCE UTILISATEUR FINAL (CLUF)
 
-En installant et en utilisant ce logiciel ("Coffre-fort Rust"), vous acceptez les conditions suivantes :
+En installant et en utilisant ce logiciel ("Coffre-fort GesPass"), vous acceptez les conditions suivantes :
 
 1. UTILISATION : Ce logiciel est fourni "en l'état", sans aucune garantie d'aucune sorte, expresse ou implicite.
 
