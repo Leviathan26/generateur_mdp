@@ -1,0 +1,172 @@
+import {
+    Button,
+    LineEdit,
+    VerticalBox,
+    HorizontalBox,
+    ComboBox,
+    GroupBox,
+    ScrollView,
+} from "std-widgets.slint";
+
+export component AppWindow inherits Window {
+    title: "Coffre-fort GesPass";
+    icon: @image-url("logo.png");
+    min-width: 500px;
+    min-height: 500px;
+
+    // Propriétés partagées avec Rust
+    in-out property <string> mdp-affiche: "Cliquer sur Générer";
+    in-out property <string> label-site: "";
+    in-out property <string> recherche-query: "";
+    in-out property <string> resultats-historique: "L'historique s'affichera ici...";
+    in-out property <string> type-selectionne: "Mixte";
+    in-out property <int> longueur-mdp: 16;
+    in-out property <string> message-statut: ""; // Pour la notification
+    in-out property <color> couleur-statut: green;
+    callback generer-clic();
+    callback sauvegarder-clic();
+    callback copier-clic();
+    callback rechercher-clic();
+
+    public function reset_focus() {
+        btn_gen.focus(); // Donne le focus au bouton "Générer"
+    }
+
+    VerticalBox {
+        padding: 20px;
+        spacing: 12px;
+        Text {
+            text: "Gestionnaire de mots de passe";
+            font-size: 22px;
+            horizontal-alignment: center;
+            color: #2c3e50;
+        }
+        // --- ZONE DE NOTIFICATION ---
+        Text {
+            text: message-statut;
+            color: couleur-statut;
+            font-weight: 700;
+            horizontal-alignment: center;
+            height: 20px;
+        }
+
+        // --- SECTION GÉNÉRATION ---
+        GroupBox {
+            title: "Configuration du mot de passe";
+            VerticalBox {
+                HorizontalBox {
+                    Text {
+                        text: "Type: ";
+                        vertical-alignment: center;
+                    }
+
+                    ComboBox {
+                        model: ["Mixte", "Alphabetique", "Numerique", "Hexadecimal"];
+                        current-value <=> type-selectionne;
+                    }
+
+                    Text {
+                        text: " Longueur: ";
+                        vertical-alignment: center;
+                    }
+
+                    LineEdit {
+                        text: longueur-mdp;
+                        input-type: number;
+                        width: 60px;
+                    }
+                }
+
+                Rectangle {
+                    background: #f8f9fa;
+                    border-width: 1px;
+                    border-color: #dee2e6;
+                    height: 50px;
+                    Text {
+                        text: mdp-affiche;
+                        font-size: 18px;
+                        color: #007bff;
+                        font-weight: 700;
+                    }
+                }
+
+                HorizontalBox {
+                    btn_gen := Button {
+                        text: "Générer";
+                        clicked => {
+                            root.generer-clic()
+                        }
+                    }
+
+                    Button {
+                        text: "Copier";
+                        clicked => {
+                            root.copier-clic()
+                        }
+                    }
+                }
+            }
+        }
+
+        // --- SECTION SAUVEGARDE ---
+        HorizontalBox {
+            LineEdit {
+                placeholder-text: "Nom du site / Label";
+                text <=> label-site;
+            }
+
+            Button {
+                text: "Sauvegarder";
+                primary: true;
+                clicked => {
+                    root.sauvegarder-clic()
+                }
+            }
+        }
+
+        // --- SECTION RECHERCHE ---
+        GroupBox {
+            title: "Historique";
+            VerticalBox {
+                HorizontalBox {
+                    LineEdit {
+                        placeholder-text: "Rechercher un site... (entrée)";
+                        text <=> recherche-query;
+                        // --- DÉCLENCHE LA RECHERCHE AVEC ENTRÉE ---
+                        accepted => { root.rechercher-clic() }
+                    }
+
+                    Button {
+                        text: "Chercher";
+                        clicked => {
+                            root.rechercher-clic()
+                        }
+                    }
+                }
+
+                Rectangle {
+                    background: #ffffff;
+                    border-width: 1px;
+                    border-color: #dee2e6;
+                    height: 150px;
+                    clip: true; // Empêche le texte de déborder du rectangle blanc
+
+    ScrollView {
+                        viewport-height: hist-text.preferred-height; // Permet le défilement vertical
+        
+        hist-text := Text {
+                            text: recherche-query == "" ? "" : resultats-historique;
+                            font-family: "monospace";
+                            font-size: 14px;
+                            color: #333333;
+                            wrap: word-wrap;
+                            horizontal-alignment: left;
+                            vertical-alignment: top;
+                            width: 100%; // Prend toute la largeur pour le wrap
+        }
+                    }
+                }
+            }
+        }
+    }
+}
