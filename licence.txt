@@ -1,0 +1,14 @@
+CONTRAT DE LICENCE UTILISATEUR FINAL (CLUF)
+
+En installant et en utilisant ce logiciel ("Coffre-fort Rust"), vous acceptez les conditions suivantes :
+
+1. UTILISATION : Ce logiciel est fourni "en l'état", sans aucune garantie d'aucune sorte, expresse ou implicite.
+
+2. EXCLUSION DE RESPONSABILITÉ : L'auteur du logiciel ne pourra en aucun cas être tenu responsable de tout dommage, direct ou indirect, incluant mais ne se limitant pas à :
+   - La perte de données ou de mots de passe.
+   - L'oubli ou la perte de la clé de chiffrement stockée dans le registre Windows.
+   - Tout dysfonctionnement technique lié à l'utilisation du programme.
+
+3. SÉCURITÉ : L'utilisateur est seul responsable de la sauvegarde de ses données et de la sécurité de son système.
+
+En cliquant sur "J'accepte", vous reconnaissez avoir lu ce contrat et dégagez l'auteur de toute responsabilité légale ou financière liée à l'usage de ce logiciel.
