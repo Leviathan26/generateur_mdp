@@ -1,6 +1,10 @@
+#![windows_subsystem = "windows"]
 mod utils;
 use std::env;
+use winapi::um::wincon::AttachConsole;
+use winapi::um::wincon::ATTACH_PARENT_PROCESS;
 slint::include_modules!();
+
 
 fn main() {
     let args: Vec<String> = env::args().collect();
@@ -63,7 +67,7 @@ fn main() {
                     ui.set_mdp_affiche("Cliquer sur Générer".into());
                     ui.set_couleur_statut(slint::Color::from_rgb_u8(0, 150, 0)); // Vert
                     ui.set_message_statut("Sauvegarde réussie !".into());
-                    ui.invoke_reset_focus(); 
+                    ui.invoke_reset_focus();
 
                     // Faire disparaître le message après 3 secondes
                     let ui_timer = ui_handle_save.unwrap();
@@ -80,6 +84,9 @@ fn main() {
         ui.run().unwrap();
     } else {
         // --- MODE CLI ---
+        unsafe {
+            AttachConsole(ATTACH_PARENT_PROCESS);
+        }
         lancer_cli(args);
     }
 }
